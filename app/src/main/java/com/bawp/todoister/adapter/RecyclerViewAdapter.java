@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bawp.todoister.R;
 import com.bawp.todoister.model.Task;
+import com.bawp.todoister.util.Utils;
 import com.google.android.material.chip.Chip;
 
 import java.util.List;
@@ -35,8 +36,11 @@ private final List<Task> taskList;
 
     @Override
     public void onBindViewHolder(@NonNull RecyclerViewAdapter.ViewHolder holder, int position) {
-Task task=taskList.get(position);
-holder.task.setText(task.getTask());
+        Task task=taskList.get(position);
+        String formatted = Utils.formatDate(task.getDueDate());
+
+        holder.task.setText(task.getTask());
+        holder.todayChip.setText(task.getDueDate().toString());
     }
 
     @Override
@@ -52,7 +56,7 @@ holder.task.setText(task.getTask());
             super(itemView);
             radioButton=itemView.findViewById(R.id.todo_radio_button);
             task=itemView.findViewById(R.id.todo_row_todo);
-            todayChip=itemView.findViewById(R.id.today_chip);
+            todayChip=itemView.findViewById(R.id.todo_row_chip);
 
 
         }
